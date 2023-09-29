@@ -7,6 +7,8 @@ DO_KEYS = ['__ow_method', '__ow_headers', '__ow_path', 'http']
 GEO_SERVER_URL = os.environ.get('GEO_SERVER_URL').rstrip('/')
 GEO_SERVER_PORT = os.environ.get('GEO_SERVER_PORT')
 
+# If GeoServer port number not needed, set GEO_SERVER_PORT to False
+GEO_SERVER_PORT = False if GEO_SERVER_PORT.lower() in ['false','null','none','na] else GEO_SERVER_PORT
 
 def get_layer_params(headers: dict) -> list[str]:
     layer_params = {}
@@ -25,10 +27,14 @@ def standardize_fields(fields: dict) -> dict:
     """
     Since GeoNode is unable to handle property names containing '/', we need
     to replace them with something, in this case '__'. Attribute names can also
-    only contain lowercase letters.
+    only contain lowercase letters and can't have leading underscores (_).
     """
     new_fields = {}
     for k, v in fields.items():
+
+        # GeoNode 4 strips leading underscores by default
+        k = k.lstrip('_')
+        
         # Make attribute name lowercase
         k = k.lower()
 
