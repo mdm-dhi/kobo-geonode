@@ -8,7 +8,7 @@ GEO_SERVER_URL = os.environ.get('GEO_SERVER_URL').rstrip('/')
 GEO_SERVER_PORT = os.environ.get('GEO_SERVER_PORT')
 
 # If GeoServer port number not needed, set GEO_SERVER_PORT to False
-GEO_SERVER_PORT = False if GEO_SERVER_PORT.lower() in ['false','null','none','na] else GEO_SERVER_PORT
+GEO_SERVER_PORT = False if GEO_SERVER_PORT.lower() in ['false','null','none','na'] else GEO_SERVER_PORT
 
 def get_layer_params(headers: dict) -> list[str]:
     layer_params = {}
